@@ -5,6 +5,10 @@ namespace Fibon.Api.Controllers
     [Route("[controller]")]
     public class FibonacciController : Controller
     {
+        public FibonacciController()
+        {
+        }
+
         [HttpGet("{number}")]
         public IActionResult Get(int number)
         {
