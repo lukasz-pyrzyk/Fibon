@@ -8,30 +8,19 @@ namespace Fibon.Service.Handlers
     public class CalculateValueCommandHandler : ICommandHandler<CalculateValueCommand>
     {
         private readonly IBusClient _busClient;
+        private readonly ICalculator _calc;
 
-        public CalculateValueCommandHandler(IBusClient busClient)
+        public CalculateValueCommandHandler(IBusClient busClient, ICalculator calc)
         {
             _busClient = busClient;
+            _calc = calc;
         }
 
         public async Task HandleAsync(CalculateValueCommand command)
         {
-            int result = Fib(command.Number);
+            int result = _calc.Fib(command.Number);
 
             await _busClient.PublishAsync(new ValueCalculatedEvent { Number = command.Number, Value = result });
-        }
-
-        private int Fib(int n)
-        {
-            switch (n)
-            {
-                case 0:
-                    return 0;
-                case 1:
-                    return 1;
-                default:
-                    return Fib(n - 2) + Fib(n - 1);
-            }
         }
     }
 }

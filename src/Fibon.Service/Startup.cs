@@ -66,6 +66,7 @@ namespace Fibon.Service
             var client = BusClientFactory.CreateDefault(options);
             services.AddSingleton<IBusClient>(_ => client);
             services.AddTransient<ICommandHandler<CalculateValueCommand>, CalculateValueCommandHandler>();
+            services.AddTransient<ICalculator, FastOne>();
         }
     }
 }
