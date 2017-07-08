@@ -1,3 +1,4 @@
+using Fibon.Api.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fibon.Api.Controllers
@@ -5,8 +6,11 @@ namespace Fibon.Api.Controllers
     [Route("[controller]")]
     public class FibonacciController : Controller
     {
-        public FibonacciController()
+        private readonly IRepository _repository;
+
+        public FibonacciController(IRepository repository)
         {
+            _repository = repository;
         }
 
         [HttpGet("{number}")]
